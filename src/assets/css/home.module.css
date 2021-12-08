@@ -1,0 +1,34 @@
+.main{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+.ct{
+  flex:1;
+  padding:20px
+}
+.nav{
+  height: 110px;
+}
+
+.cityZone{
+  height: 177px;
+  border:1px solid red;
+  padding-left: 80px;
+  display: flex;
+  width: 595px;
+}
+.cityZone > div{
+  display: flex;
+  flex-direction: column;
+
+}
+.cityZone > div >div{
+  flex:1
+}
+
+.ipt{
+  border-bottom: 1px solid #ebebeb;
+}
