@@ -7,28 +7,143 @@
 
 .ct{
   flex:1;
-  padding:20px
+  padding:20px;
+  background: #f7f7f7;
 }
 .nav{
   height: 110px;
+  display: flex;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 22px;
 }
-
+.nav > div{
+  flex: 1;
+}
+.navItem{
+  text-align: center;
+}
 .cityZone{
   height: 177px;
-  border:1px solid red;
   padding-left: 80px;
   display: flex;
-  width: 595px;
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+
 }
 .cityZone > div{
   display: flex;
   flex-direction: column;
-
+  flex:1
 }
 .cityZone > div >div{
   flex:1
 }
+.cityZone > div input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border:none;
+  font-size: 30px;
+}
 
 .ipt{
   border-bottom: 1px solid #ebebeb;
+}
+.ex{
+  left:20px;
+  top:50%;
+  transform: translateY(-50%);
+  position: absolute;
+
+}
+
+.searchBt{
+  margin-top: 24px;
+  height: 88px;
+  line-height: 88px;
+  width: 100%;
+  border:none;
+  color:#fff;
+  border-radius: 7px;
+  background: -webkit-linear-gradient(left,#ef9134,#ef6c33);
+}
+
+
+.hotBox{
+
+}
+.hotTitle{
+    position: relative;
+    text-align: center;
+     line-height: 80px;
+}
+.hotTitle::after{
+  content:"";
+  display: block;
+  position: absolute;
+  width: 80px;
+  border-top:1px solid #b2b2b2;
+  top:50%;
+  left: 50%;
+  transform: translateX(-200%) translateY(-50%);
+}
+.hotTitle::before{
+  content:"";
+  display: block;
+  position: absolute;
+  width: 80px;
+  border-top:1px solid #b2b2b2;
+  top:50%;
+  left: 50%;
+  transform: translateX(100%) translateY(-50%);
+}
+.hotItem{
+  width: 345px;
+  background: #fff;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.hotItem > div{
+  flex: 1;
+  line-height: 77px;
+  padding-left: 40px;
+  font-size: 30px;
+}
+
+.dot{
+  position: absolute;
+  left:20px;
+  top:50%;
+  transform: translateY(-50%);
+  height: 28px;
+  border-left:1px solid #ccc
+}
+.dot::before{
+  content:"";
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e5722a;
+  position: absolute;
+  transform: translateX(-4px);
+  left:0;
+  top:-22px
+}
+
+.dot::after{
+  content:"";
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #41aaa9;
+  position: absolute;
+  left:0;
+  transform: translateX(-4px);
+  bottom:-22px
 }
