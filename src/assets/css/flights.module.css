@@ -1,0 +1,108 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ct{
+    flex:1;
+    background: #f7f7f7;
+    overflow-y: auto;
+}
+.date{
+    height: 90px;
+    line-height: 90px;
+    display:flex;
+    justify-content: space-between;
+    padding:0 20px;
+
+}
+
+.date >div:nth-child(2){
+    color:#e5722a;
+}
+
+.fbox{
+    background: #fff;
+    padding: 0 20px;
+    margin-top: 20px;
+}
+.ft{
+    height: 92px;
+    line-height: 92px;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ftime{
+    color:#1e1e1e;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.fprice{
+    color:#e5722a;
+    font-weight: 600;
+}
+.fstation{
+    padding: 18px 0;
+}
+.fs{
+    line-height: 60px;
+    display: flex;
+    align-items: center;
+}
+.fs:before {
+    content:"上";
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    display: block;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    transform: scale(.5);
+    background: #e5722a;
+    color:#fff
+
+}
+.fe{
+    line-height: 60px;
+    display: flex;
+    align-items: center;
+}
+.fe:before {
+    content:"下";
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    display: block;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    transform: scale(.5);
+    background: #41aaa9;
+    color:#fff
+
+}
+
+.fb{
+    border-top: 1px solid #ebebeb;
+    padding: 18px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.fb > div:first-child{
+    color:#e5722a;
+}
+.fbbt{
+    color:#fff;
+    width: 160px;
+    height: 53px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    background: -webkit-linear-gradient(left,#ef9134,#ef6c33);
+}

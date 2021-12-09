@@ -1,0 +1,11 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ct{
+    flex:1;
+    background: #f7f7f7;
+    overflow-y: auto;
+}

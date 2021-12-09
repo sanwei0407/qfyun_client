@@ -3,7 +3,10 @@
 import style from '../assets/css/home.module.css'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import {Input ,Button} from 'antd-mobile'
+import  { useDispatch } from 'react-redux'
+import {Input ,Button} from 'antd-mobile/2x'
+import { chaneStartCity,changeArriveCity} from "../store/reducer";
+
 const Home = ()=>{
 
     // 起点城市
@@ -15,6 +18,7 @@ const Home = ()=>{
 
     // 得到history对象
     const history = useHistory()
+    const dispatch = useDispatch()
 
     // 切换起始点
     const exCity = () => {
@@ -25,7 +29,8 @@ const Home = ()=>{
     // 点击搜索
     const handleSearch = ()=>{
          // 把我们的起终点 设置到 redux
-
+        dispatch( chaneStartCity(startCity) )
+        dispatch( changeArriveCity(arriveCity) )
         // 跳转
         history.push({ pathname:'Flights', search:`?startCity=${startCity}&arriveCity=${arriveCity}`  })
 
@@ -46,6 +51,7 @@ const Home = ()=>{
                       <div className={style.ex} onClick={ exCity  }>
                           <i className="iconfont icon-24gl-swapVertical2"></i>
                       </div>
+
 
                   </div>
 

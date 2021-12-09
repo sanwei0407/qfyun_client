@@ -1,0 +1,236 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ct{
+    flex:1;
+    background: #f7f7f7;
+    overflow-y: auto;
+}
+.date{
+    height: 90px;
+    line-height: 90px;
+    display:flex;
+    justify-content: space-between;
+    padding:0 20px;
+
+}
+
+.date >div:nth-child(2){
+    color:#e5722a;
+}
+
+.fbox{
+    background: #fff;
+    padding: 0 20px;
+    margin: 20px auto;
+    width: 705px;
+    position: relative;
+}
+
+.fbox:before{
+    content:"";
+    display: flex;
+    width: 30px;
+    height: 30px;
+    background:#f7f7f7;
+    border-radius: 50%;
+    position: absolute;
+    top:50%;
+    left:0;
+    transform: translate(-50%,-50%);
+}
+.fbox:after{
+    content:"";
+    display: flex;
+    width: 30px;
+    height: 30px;
+    background:#f7f7f7;
+    border-radius: 50%;
+    position: absolute;
+    top:50%;
+    right:0;
+    transform: translate(50%,-50%);
+}
+
+.ft{
+    height: 92px;
+    line-height: 92px;
+    border-bottom: 1px dashed #ebebeb;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ftime{
+    color:#1e1e1e;
+    font-size: 28px;
+
+}
+
+.fprice{
+    color:#e5722a;
+    font-weight: 600;
+}
+.fstation{
+    padding: 18px 0;
+}
+.fs{
+    line-height: 60px;
+    display: flex;
+    align-items: center;
+}
+.fs:before {
+    content:"上";
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    display: block;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    transform: scale(.5);
+    background: #e5722a;
+    color:#fff
+
+}
+.fe{
+    line-height: 60px;
+    display: flex;
+    align-items: center;
+}
+.fe:before {
+    content:"下";
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    display: block;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    transform: scale(.5);
+    background: #41aaa9;
+    color:#fff
+
+}
+
+.fb{
+    border-top: 1px solid #ebebeb;
+    padding: 18px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.fb > div:first-child{
+    color:#e5722a;
+}
+.fbbt{
+    color:#fff;
+    width: 160px;
+    height: 53px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    background: -webkit-linear-gradient(left,#ef9134,#ef6c33);
+}
+
+
+.ccr{
+    padding:20px;
+    background: #fff;
+}
+
+.hotTitle{
+    position: relative;
+    text-align: center;
+    line-height: 80px;
+}
+.hotTitle::after{
+    content:"";
+    display: block;
+    position: absolute;
+    width: 20px;
+    border-top:1px solid #b2b2b2;
+    top:50%;
+    left: 68%;
+    transform: translateX(-200%) translateY(-50%);
+}
+.hotTitle::before{
+    content:"";
+    display: block;
+    position: absolute;
+    width: 20px;
+    border-top:1px solid #b2b2b2;
+    top:50%;
+    left: 30%;
+    transform: translateX(100%) translateY(-50%);
+}
+
+.rideZone{
+    display: flex;
+}
+.rideManBox{
+    color:#e5722a;
+    padding: 15px;
+    font-size: 26px;
+    line-height: 1;
+    border-radius: 7px;
+    border:1px solid #e5722a;
+    margin-right: 18px;
+}
+.addRide{
+    color:#6b92d0;
+    padding: 15px;
+    font-size: 26px;
+    line-height: 1;
+    border-radius: 7px;
+    border:1px solid #6b92d0;
+}
+
+.rideManList{
+    margin-top: 28px;
+}
+.rideMan{
+    display: flex;
+    justify-content: space-between;
+    font-size: 26px;
+    line-height: 70px;
+}
+
+.rideMan > div:nth-child(2){
+    color:#9d9d9d;
+}
+.readme{
+    padding:20px
+}
+
+.orderBottom{
+    height: 94px;
+    border-top: 1px solid #9d9d9d;
+    display: flex;
+}
+.orderinfo{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    line-height: 94px;
+    padding: 0 20px;
+}
+
+.orderinfo span{
+    color:#e5722a;
+}
+.orderinfo > div:last-child{
+    color:#6b92d0;
+}
+
+
+.payit{
+    width: 250px;
+    text-align: center;
+    color:#fff;
+    line-height: 94px;
+    background: -webkit-linear-gradient(left,#ef9134,#ef6c33);
+
+}

@@ -1,3 +1,4 @@
+import {act} from "@testing-library/react";
 
 const initState = {
     startCity: '',
@@ -6,11 +7,11 @@ const initState = {
 
 // 声明 actionCreator
 const actions = {
-    setStartCity(payload) {
-        return { type:'setStartCity',payload }
+    chaneStartCity(payload) {
+        return { type:'chaneStartCity',payload }
     },
-    setArriveCity(payload) {
-        return { type:'arriveCity',payload }
+    changeArriveCity(payload) {
+        return { type:'changeArriveCity',payload }
     }
 }
 
@@ -19,11 +20,22 @@ const reducer = (state=initState,action)=>{
 
     const newState =  {...state }
 
+    const { type } = action;
+
+    switch (type){
+        case 'chaneStartCity':
+            newState.startCity = action.payload;
+            break
+        case 'changeArriveCity':
+            newState.arriveCity = action.payload;
+        default:
+
+    }
 
 
     return newState
 
 }
 
-export  const  { setStartCity,setArriveCity} = actions
+export  const  { chaneStartCity,changeArriveCity} = actions
 export  default  reducer
