@@ -78,6 +78,10 @@
 .orderInfo{
     height: 186px;
     background: -webkit-linear-gradient(left,#ef9134,#ef6c33);
+    font-size: 28px;
+    line-height: 5;
+    padding-left: 30px;
+    color:#fff
 }
 .mblock{
     height: 20px;
@@ -94,8 +98,8 @@
     flex: 1;
     display: flex;
     justify-content: space-between;
-
     padding: 0 20px;
+
 }
 
 
