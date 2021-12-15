@@ -131,8 +131,7 @@ module.exports = function (webpackEnv) {
             }),
             // Adds PostCSS Normalize as the reset css with default options,
             // so that it honors browserslist config in package.json
-            // which in turn let's users customize the target behavior as per their needs.
-
+            // npm i  postcss-px-to-viewport
             require('postcss-px-to-viewport')({
               viewportWidth: 750, // (Number) 转换的基础参考比例(设计稿的宽度)
               unitPrecision: 3, // (Number) 转换之后保留多少位小数

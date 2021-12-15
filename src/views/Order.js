@@ -1,16 +1,52 @@
 import style from '../assets/css/order.module.css'
-import { NavBar ,DatePicker ,Dialog,Checkbox} from 'antd-mobile/2x'
-import {useHistory} from "react-router-dom";
+import {NavBar, DatePicker, Dialog, Checkbox, Toast} from 'antd-mobile/2x'
+import {useHistory,useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
-
+import $api from '../api'
 const Order = ()=>{
 
     const history = useHistory();
-    const [ rideMan,setRideMan ] = useState([
-        { realname:'dixon',idNum:'123******333'  }
-    ])
+    const location = useLocation(); // 通过id 去获取航线信息  也可以从上个页面跳转的之后直接通过state传递
+
+    let id = new URLSearchParams(location.search).get('id');
+    let date = new URLSearchParams(location.search).get('date');
+
+
+
+
+    const [ linkMan,setLinkMan ] = useState([ ])
+    const [flightInfo ,setFlightInfo] = useState({})
+
 
     useEffect(()=>{
+        if(!id) {
+            Toast.show({
+                content: '获取信息参数有误'
+            })
+            return  setTimeout(()=>{
+                history.goBack()
+            },1500)
+        }
+        getFlightInfo(); // 获取航线信息
+        getLinkMans();  // 获取联系人信息
+
+    },[])
+
+    const getFlightInfo = async ()=>{
+            const res = await $api.post('/flight/getOne',{id})
+            const {data,success } = res.data;
+            if(!success) return       Toast.show({ content: '获取出错' })
+            setFlightInfo(data)
+    }
+
+    const getLinkMans = async ()=>{
+        const res = await $api.post('/linkman/getAll')
+        const {data,success } = res.data;
+        if(!success) return       Toast.show({ content: '获取出错' })
+        setLinkMan(data)
+    }
+
+  /*  useEffect(()=>{
         Dialog.alert({
             content: ( <>
                 我是文字提醒内容
@@ -32,7 +68,7 @@ const Order = ()=>{
             },
         })
     },[])
-
+*/
     return (
         <div className={style.main}>
             <NavBar onBack={()=> history.goBack() }> 订单信息</NavBar>
@@ -42,16 +78,16 @@ const Order = ()=>{
                 <div className={style.fbox}>
                     {/* 时间票价 */}
                     <div className={style.ft}>
-                        <div className={style.ftime}> 12-25 17:30</div>
+                        <div className={style.ftime}> { date } { flightInfo.startTime }</div>
                         <div className={style.fprice}>  </div>
                     </div>
                     {/* 上下车站点 */}
                     <div className={style.fstation}>
                         <div className={style.fs}>
-                            出发地点
+                            {flightInfo.startCity}
                         </div>
                         <div className={style.fe}>
-                            到达地点
+                            {flightInfo.arriveCity}
                         </div>
                     </div>
 
@@ -72,11 +108,15 @@ const Order = ()=>{
                     </div>
 
                     <div className={style.rideManList}>
-                        <div className={style.rideMan}>
-                            <div> Dixon </div>
-                            <div> 123******333 </div>
-                            <div> 35.00 </div>
-                        </div>
+
+                        { linkMan.map(item=>(
+                            <div className={style.rideMan}>
+                                <div> {item.realName} </div>
+                                <div> { item.idNum.slice(0,3) } *** { item.idNum.slice(-3) } </div>
+                                <div>  { flightInfo.ticketPrice/100 } </div>
+                            </div>
+                        ))  }
+
 
                     </div>
                 </div>

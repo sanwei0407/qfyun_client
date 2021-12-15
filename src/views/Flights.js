@@ -1,13 +1,18 @@
 import style from '../assets/css/flights.module.css'
-import { NavBar ,DatePicker} from 'antd-mobile/2x'
+import { NavBar ,DatePicker,Toast} from 'antd-mobile/2x'
 import { useHistory } from 'react-router-dom'
-import { useState } from "react";
+import { useState ,useEffect} from "react";
+import { useSelector } from "react-redux";
+import $api from '../api'
 import dayjs from 'dayjs'
 
 const Flights = ()=>{
 
     const history = useHistory();
 
+    // 从redux当中读取 出发城市和达到城市名称
+
+    const st = useSelector(state=>state);
     // 选择的日期
     const [sDate,setSdate] = useState(dayjs());
     const [visible,setVisible] = useState(false)
@@ -22,6 +27,33 @@ const Flights = ()=>{
         setSdate( sDate.add(1,'day') )
     }
 
+    useEffect(()=>{
+        getFlightList()
+    },[])
+
+
+    // 获取航线信息
+
+    const  getFlightList = async ()=>{
+
+            if(!st.startCity || !st.arriveCity) {
+                Toast.show({
+                    content: '请正确的选贼开始城市和接达到城市'
+                })
+                return  setTimeout(()=>{
+                    history.goBack()
+                },1500)
+            }
+            const res = await $api.post('/flight/getAll',{
+                startCity:st.startCity,
+                arriveCity: st.arriveCity
+            })
+            const { data,success } = res.data;
+            if(!success) return       Toast.show({ content: '获取出错' })
+
+           setFlights(data)
+    }
+
     return (
         <div className={style.main}>
 
@@ -33,30 +65,39 @@ const Flights = ()=>{
             </div>
             {/*列表*/}
             <div className={style.ct}>
-                    <div className={style.fbox}>
+                { flights.map(item=>(
+                    <div className={style.fbox} key={item._id}>
                         {/* 时间票价 */}
                         <div className={style.ft}>
-                            <div className={style.ftime}> 17:30</div>
-                            <div className={style.fprice}> ￥50 </div>
+                            <div className={style.ftime}>  { item.startTime.slice(0,5)  } </div>
+                            <div className={style.fprice}> ￥{ item.ticketPrice/100 } 元 </div>
                         </div>
                         {/* 上下车站点 */}
                         <div className={style.fstation}>
                             <div className={style.fs}>
-                                出发地点
+                                { item.startCity }
                             </div>
                             <div className={style.fe}>
-                                到达地点
+                                { item.arriveCity }
                             </div>
                         </div>
                         <div className={style.fb}>
                             <div> 余票充足  </div>
-                            <div className={style.fbbt}>  选择班次  </div>
+                            <div className={style.fbbt} onClick={()=>{
+                                history.push({
+                                    pathname:'/Order',
+                                    search:'id='+item._id + '&date='+sDate.format("MM-DD"),
+
+                                })
+                            }}>  选择班次  </div>
                         </div>
 
 
 
 
                     </div>
+                )) }
+
             </div>
 
 
