@@ -2,12 +2,16 @@
 // 样式的导入
 import style from '../assets/css/home.module.css'
 import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory ,useLocation} from 'react-router-dom'
 import  { useDispatch } from 'react-redux'
 import {Input ,Button} from 'antd-mobile/2x'
 import { chaneStartCity,changeArriveCity} from "../store/reducer";
 
 const Home = ()=>{
+    
+    const location = useLocation();
+    const token = new URLSearchParams(location.search).get("token");
+    window.localStorage.setItem('token',token)
 
     // 起点城市
     const [startCity,setStartCity]  = useState('')

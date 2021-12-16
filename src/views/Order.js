@@ -20,10 +20,9 @@ const Order = ()=>{
     const [flightInfo ,setFlightInfo] = useState({}) // 航班详细信息
     const [startStation,setStartStation] = useState(''); // 出发站点
     const [arriveStation,setArriveStation] = useState(''); // 到达站点
-
     const [who,setWho] = useState([])
-
     const [phone,setPhone] =useState('')
+    const [code,setCode] = useState('')
 
 
 
@@ -78,6 +77,7 @@ const Order = ()=>{
         if(linkMan.length === 0 ) return Toast.show({content:'请选择乘车人'})
         if(!startStationId ) return Toast.show({content:'请选出出发站点'})
         if(!arriveStationId ) return Toast.show({content:'请选择到达站点'})
+        if(!code ) return Toast.show({content:'请获取短信验证码'})
 
         const postData = {
             startCity,
@@ -87,7 +87,8 @@ const Order = ()=>{
             orderDate: new Date(orderDate),
             flightNum,
             linkMan,
-            phone
+            phone,
+            code
         }
 
        const _res = await $api.post('/order/preOrder',postData);
@@ -99,6 +100,21 @@ const Order = ()=>{
          history.push('/OrderDetail?id='+data )
 
     }
+
+  //  获取验证码
+
+  const handleGetCode = async()=>{
+
+    if(!phone) return Toast.show({content:'请输入手机号码'})
+      let res = await $api.post('/common/sendSms',{
+        phone
+      })
+
+      const { success,info,code} = res.data;
+      if(success) return Toast.show({content: code})
+      Toast.show({content: '获取有误'})
+  }
+
 
   /*  useEffect(()=>{
         Dialog.alert({
@@ -176,9 +192,15 @@ const Order = ()=>{
                     <Form
                         layout={'horizontal'}
                     >
-                        <Form.Item name='type' label='联系电话'>
+                        <Form.Item name='phone' label='联系电话' extra={ <button onClick={handleGetCode}>获取验证码</button> }>
                             <Input  placeholder="请填写订单联系电话" onChange={val=>setPhone(val)} />
+                            
                         </Form.Item>
+                        <Form.Item name='code' label='短信验证码'>
+                            <Input  placeholder="填写短信验证码" onChange={val=>setCode(val)} />
+                        </Form.Item>
+
+
                     </Form>
                 </div>
 
