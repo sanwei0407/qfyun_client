@@ -194,7 +194,6 @@ const Order = ()=>{
                     >
                         <Form.Item name='phone' label='联系电话' extra={ <button onClick={handleGetCode}>获取验证码</button> }>
                             <Input  placeholder="请填写订单联系电话" onChange={val=>setPhone(val)} />
-                            
                         </Form.Item>
                         <Form.Item name='code' label='短信验证码'>
                             <Input  placeholder="填写短信验证码" onChange={val=>setCode(val)} />

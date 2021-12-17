@@ -1,19 +1,28 @@
 import style from '../assets/css/orderDetail.module.css'
-import { NavBar ,List ,Toast} from 'antd-mobile/2x'
+import { NavBar ,List ,Toast,Modal} from 'antd-mobile/2x'
+
 import {useHistory, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import $api from '../api'
 import dayjs from 'dayjs'
+// qrcode.react 生成二维码的组件  npm install qrcode.react
+var QRCode = require('qrcode.react');
+
 
 const OrderDetail = ()=>{
     const history = useHistory()
     const location = useLocation(); // 通过id 去获取航线信息  也可以从上个页面跳转的之后直接通过state传递
     let id = new URLSearchParams(location.search).get('id');
-    const [order,setOrder] = useState({})
+    const [order,setOrder] = useState({}) // 订单信息
+    const [checkurl,setCheckurl] = useState('')
+
 
     useEffect(()=>{
         getOrderInfo()
     },[])
+    useEffect(()=>{
+        console.log('checkurl',checkurl)
+    },[checkurl])
 
     const getOrderInfo = async ()=>{
 
@@ -21,6 +30,7 @@ const OrderDetail = ()=>{
         const { success ,data} = _res.data;
         if(!success) Toast.show({content:'获取失败'})
         setOrder(data)
+        setCheckurl('http://localhost:3001/check?id='+data._id)
     }
 
     // 用户取消订单
@@ -43,17 +53,36 @@ const OrderDetail = ()=>{
         if(order.orderState == 8) return '用户退票失败'
         if(order.orderState == 9) return '取消'
     }
+
+
+
+
     return (
         <div className={style.main}>
             <NavBar onBack={()=> history.goBack() }>订单详情</NavBar>
             <div className={style.ct}>
                 <div className={style.orderInfo}>
-                    订单当前状态:  {orderStateTxt()}
+                    <div>订单当前状态:  {orderStateTxt()}</div>
+                    <div>订单创建时间: {dayjs(order.createdAt).format("YYYY-MM-DD HH:mm")}</div>
+                    {/* 二维码 */}
+                    <div className={style.tkqrcode}  onClick={() =>
+                        Modal.alert({
+                            content:  (<div className={style.mycode}> 
+                                             <QRCode value={checkurl} />
+                                             <div> 乘车请出示二维码</div>
+                                         </div>),
+                            onConfirm: () => {
+                            console.log('Confirmed')
+                            },
+                        })
+                    }> 
+                     <QRCode value={checkurl} />
+
+                   </div>
                 </div>
 
                 <List>
                     <List.Item  extra={ dayjs(order.orderDate).format('YYYY-MM-DD HH:mm') }> 乘车时间</List.Item>
-
                 </List>
 
                 {/* 基本信息 */}
@@ -69,8 +98,6 @@ const OrderDetail = ()=>{
                             { order.arriveCity  + ' ' + order.arriveStationId }
                         </div>
                     </div>
-
-
 
 
                 </div>
@@ -103,8 +130,13 @@ const OrderDetail = ()=>{
                 </List>
             </div>
             <div className={style.orderBottom}>
-                <div className={style.cancel} onClick={ handleCancel }> 取消</div>
-                <div className={style.payit}>立即支付</div>
+                {
+                    order.orderState == 1 && <>
+                            <div className={style.cancel} onClick={ handleCancel }> 取消</div>
+                            <div className={style.payit}>立即支付</div>
+                    </>
+                }
+              
             </div>
         </div>
     )

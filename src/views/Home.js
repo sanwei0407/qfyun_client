@@ -1,14 +1,17 @@
 
 // 样式的导入
 import style from '../assets/css/home.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useHistory ,useLocation} from 'react-router-dom'
 import  { useDispatch } from 'react-redux'
-import {Input ,Button} from 'antd-mobile/2x'
+import {Input ,Button,Toast} from 'antd-mobile/2x'
 import { chaneStartCity,changeArriveCity} from "../store/reducer";
+import $api from '../api'
 
-const Home = ()=>{
+const Home = (props)=>{
+  
     
+    // 首页需要去从 query参数当中得到 token 并把token保存到 localstore当中
     const location = useLocation();
     const token = new URLSearchParams(location.search).get("token");
     window.localStorage.setItem('token',token)
@@ -24,12 +27,25 @@ const Home = ()=>{
     const history = useHistory()
     const dispatch = useDispatch()
 
+    // 获取首页的热门线路
+
+    useEffect(()=>{
+        gethot()
+    },[])
+
+    const gethot = async ()=>{
+        const res = await $api.post('/common/hotline');
+        const{ data } = res.data;
+        setHotList(data)
+    }
+
     // 切换起始点
     const exCity = () => {
         setStartCity(arriveCity)
         setArriveCity(startCity)
     }
 
+    
     // 点击搜索
     const handleSearch = ()=>{
          // 把我们的起终点 设置到 redux
@@ -68,26 +84,27 @@ const Home = ()=>{
                       <div className={style.hotTitle}> 推荐线路 </div>
 
                       <div style={{display:'flex',flexWrap:'wrap',justifyContent:"space-between"}}>
-                          <div className={style.hotItem}>
+                         
+                         { hotList.map((item,idx)=>(
+                            <div className={style.hotItem} key={idx}  onClick={()=>{
+                                const {startCity, arriveCity} = item;
+                                setStartCity(item.startCity);
+                                setArriveCity(item.arriveCity);
+
+                                 // 把我们的起终点 设置到 redux
+                                dispatch( chaneStartCity(startCity) )
+                                dispatch( changeArriveCity(arriveCity) )
+                                // 跳转
+                                history.push({ pathname:'Flights', search:`?startCity=${startCity}&arriveCity=${arriveCity}`  })
+
+                            }}>
                                 <div className={style.dot}>  </div>
-                                <div> 深圳市 </div>
-                                <div> 广州市 </div>
-                          </div>
-                          <div className={style.hotItem}>
-                              <div className={style.dot}>  </div>
-                              <div> 深圳市 </div>
-                              <div> 广州市 </div>
-                          </div>
-                          <div className={style.hotItem}>
-                              <div className={style.dot}>  </div>
-                              <div> 深圳市 </div>
-                              <div> 广州市 </div>
-                          </div>
-                          <div className={style.hotItem}>
-                              <div className={style.dot}>  </div>
-                              <div> 深圳市 </div>
-                              <div> 广州市 </div>
-                          </div>
+                                <div> {item.startCity} </div>
+                                <div> {item.arriveCity} </div>
+                            </div>
+                         ))}
+                         
+                      
 
                       </div>
 
@@ -100,11 +117,14 @@ const Home = ()=>{
                       <div>班车</div>
                   </div>
 
-                  <div className={style.navItem}>
+                  <div className={style.navItem} onClick={()=>history.push('/MyOrder')}>
                       <div> <i className=" iconfont icon-qichepiao "></i> </div>
                       <div> 乘车</div>
                   </div>
-                  <div className={style.navItem}>
+
+                  <div className={style.navItem} onClick={()=>{
+                      Toast.show({content:'功能即将上线'})
+                  }} >
                       <div> <i className=" iconfont   icon-ertongpiao "></i> </div>
                       <div> 我的 </div>
 

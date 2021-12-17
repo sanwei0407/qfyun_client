@@ -9,11 +9,23 @@
     background: #f7f7f7;
     overflow-y: auto;
 }
+.date{
+    height: 90px;
+    line-height: 90px;
+    display:flex;
+    justify-content: space-between;
+    padding:0 20px;
+
+}
+
+.date >div:nth-child(2){
+    color:#e5722a;
+}
 
 .fbox{
     background: #fff;
     padding: 0 20px;
-
+    margin-top: 20px;
 }
 .ft{
     height: 92px;
@@ -75,67 +87,22 @@
 
 }
 
-.orderInfo{
-    height: 186px;
-    background: -webkit-linear-gradient(left,#ef9134,#ef6c33);
-    font-size: 28px;
-    line-height: 2;
-    padding-left: 30px;
-    color:#fff;
-    position: relative;
-}
-
-.tkqrcode{
-    position: absolute;
-    top:50%;
-    right:30px;
-    transform: translateY(-50%);
-    width: 130px;
-    height: 130px;
-    border: 1px solid #000;
-}
-.tkqrcode > canvas{
-    width: 100%!important;
-    height: 100%!important;
-}
-.mblock{
-    height: 20px;
-}
-
-.orderBottom{
-    height: 94px;
-    border-top: 1px solid #9d9d9d;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-.orderinfo{
-    flex: 1;
+.fb{
+    border-top: 1px solid #ebebeb;
+    padding: 18px 0;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
-
 }
-
-
-.payit{
-
-    height: 52px;
-    line-height: 52px;
-    text-align: center;
+.fb > div:first-child{
+    color:#e5722a;
+}
+.fbbt{
     color:#fff;
-    padding:0 18px;
+    width: 160px;
+    height: 53px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
     background: -webkit-linear-gradient(left,#ef9134,#ef6c33);
-
-}
-
-.cancel{
-    height: 52px;
-    line-height: 52px;
-    padding:0 18px;
-
-
-}
-.mycode{
-    text-align: center;
 }
